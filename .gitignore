@@ -1,0 +1,6 @@
+*.pyc
+*.log
+*.pem
+*.ppk
+credentials.csv
+config.py

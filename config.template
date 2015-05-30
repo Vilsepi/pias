@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Configuration of local API server
+webserver_host = 'localhost'
+webserver_port = 9001
+webserver_debug = True
+
+# Items to search from remote
+wanted_items = [{'title': 'Foo', 'body': 'Bar'}]
+
+# Only interact with the item if its text perfectly matches a wanted item
+strict_matches_only = True
+
+# URL of remote site
+remote_url = 'http://localhost'
+
+# Title of the remote page should match this
+remote_smoke_title = 'Title of page'
+
+# Remote-specific elements
+remote_config = {
+'search_field': '',
+'search_result': '',
+'search_result_title': '',
+'search_result_body': '',
+'search_result_skippable_attribute': '',
+'search_result_skippable_value': '',
+'dialog_element': '',
+'dialog_title': '',
+'dialog_text': '',
+'dialog_submit': '',
+'dialog_cancel': '',
+'dialog_assert_can_submit': ''
+}

@@ -7,10 +7,15 @@ webserver_port = 9001
 webserver_debug = True
 
 # Items to search from remote
-wanted_items = [{'title': 'Foo', 'body': 'Bar'}]
+wanted_items = [
+{'title': 'Foo', 'body': 'Bar'}
+]
 
 # Only interact with the item if its text perfectly matches a wanted item
 strict_matches_only = True
+
+# Maximum number of seconds to wait for an UI element to appear
+max_wait = 5
 
 # URL of remote site
 remote_url = 'http://localhost'
@@ -30,6 +35,8 @@ remote_config = {
 'dialog_title': '',
 'dialog_text': '',
 'dialog_submit': '',
-'dialog_cancel': '',
-'dialog_assert_can_submit': ''
+'dialog_close': '',
+'dialog_assert_can_submit': '',
+'dialog_assert_request_accepted_regex': '',
+'dialog_assert_try_later': ''
 }

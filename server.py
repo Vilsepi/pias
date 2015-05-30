@@ -26,7 +26,7 @@ class Bot:
     def get_url(self, url, run_smoke_tests=True):
         self.driver.get(url)
         if run_smoke_tests:
-            assert config.remote_smoke_title == self.driver.title
+            assert self.driver.title == config.remote_smoke_title
         return True
 
     def query(self, query_string):
@@ -34,7 +34,7 @@ class Bot:
         search_field_element.send_keys(query_string + '\n')
         return self.driver.find_elements_by_tag_name(_c('search_result'))
 
-    def interact_with_result(self, result):
+    def _interact_with_result(self, result):
         result.click()
 
         dialog_element = WebDriverWait(self.driver, 5).until(lambda driver: self.driver.find_element_by_id(_c('dialog_element')))
@@ -55,11 +55,10 @@ class Bot:
                     log.debug('Comparing {0}/{1} with wanted {2}/{3}'.format(title, body, wanted.get('title'), wanted.get('body')))
                     if title == wanted.get('title') and body == wanted.get('body'):
                         log.info('Found exact match! {0} - {1}'.format(title, body))
-                        self.interact_with_result(result)
+                        self._interact_with_result(result)
 
             except NoSuchElementException as e:
-                if result.get_attribute(_c('search_result_skippable_attribute')) != _c('search_result_skippable_value'):
-                    log.warn(e)
+                if result.get_attribute(_c('search_result_skippable_attribute')) != _c('search_result_skippable_value'): log.error(e)
 
 
 @app.route('/', methods=['GET'])

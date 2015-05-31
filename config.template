@@ -3,16 +3,17 @@
 
 # Configuration of local API server
 webserver_host = 'localhost'
-webserver_port = 9001
-webserver_debug = True
+webserver_port = 8000
+webserver_debug = False
 
-# Items to search from remote
-wanted_items = [
-{'title': 'Foo', 'body': 'Bar'}
-]
+# Database settings
+database_path = 'sqlite:///:memory:'
+
+# Explicitly search one item at a time instead of trying to minimized number of searches
+unoptimized_searching = True
 
 # Only interact with the item if its text perfectly matches a wanted item
-strict_matches_only = True
+strict_matching = True
 
 # Maximum number of seconds to wait for an UI element to appear
 max_wait = 5
@@ -38,5 +39,6 @@ remote_config = {
 'dialog_close': '',
 'dialog_assert_can_submit': '',
 'dialog_assert_request_accepted_regex': '',
-'dialog_assert_try_later': ''
+'dialog_assert_try_later': '',
+'dialog_assert_service_down': ''
 }

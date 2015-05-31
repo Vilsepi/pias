@@ -158,7 +158,7 @@ def insert_requests(data):
 
 @app.route('/', methods=['GET'])
 def root():
-    return 'GET /go\nGET /requests\nPOST /requests'
+    return 'GET /go\nGET /requests\nPOST /requests -> [{"title":"foo","subtitle":"bar"}]'
 
 @app.route('/requests', methods=['GET','POST'])
 def requests():

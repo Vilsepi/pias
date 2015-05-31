@@ -4,3 +4,5 @@
 *.ppk
 credentials.csv
 config.py
+*.db
+*.json

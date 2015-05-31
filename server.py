@@ -56,8 +56,13 @@ class Bot:
     '''Bot that interacts with the remote site.'''
 
     def __init__(self):
+        if config.headless:
+            from pyvirtualdisplay import Display
+            display = Display(visible=0, size=(480, 640))
+            display.start()
         self.driver = webdriver.Firefox()
         self.driver.maximize_window()
+        log.debug('Bot initialized')
 
     def get_url(self, url, run_smoke_tests=True):
         '''Load remote site '''

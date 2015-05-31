@@ -9,6 +9,9 @@ webserver_debug = False
 # Database settings
 database_path = 'sqlite:///:memory:'
 
+# In headless mode, bot does not open a visible browser window
+headless = True
+
 # Explicitly search one item at a time instead of trying to minimized number of searches
 unoptimized_searching = True
 

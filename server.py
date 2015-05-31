@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
 import logging
 import config
 import re
@@ -142,6 +143,18 @@ class Bot:
 
 bot = Bot()
 
+def insert_requests(data):
+    success_count = 0
+    try:
+        for payload_item in data:
+            db['requests'].insert(dict(
+                title=payload_item.get('title'),
+                subtitle=payload_item.get('subtitle'),
+                requested_from_remote=False))
+            success_count += 1
+    except:
+        log.error('Failed when receiving requests')
+    return success_count
 
 @app.route('/', methods=['GET'])
 def root():
@@ -152,19 +165,7 @@ def requests():
     if request.method == 'GET':
         return json.dumps([i for i in db['requests']])
     elif request.method == 'POST':
-        request_payload = request.get_json(force=True)
-        success_count = 0
-        try:
-            for payload_item in request_payload:
-                db['requests'].insert(dict(
-                    title=payload_item.get('title'),
-                    subtitle=payload_item.get('subtitle'),
-                    requested_from_remote=False))
-                success_count += 1
-            return "Added {} requests to queue".format(success_count)
-        except:
-            log.error('Failed when receiving requests')
-            return "Failed"
+        return "Inserted {} requests to queue".format(insert_requests(request.get_json(force=True)))
 
 @app.route('/go', methods=['GET'])
 def go():
@@ -188,4 +189,10 @@ def go():
 
 
 if(__name__ == "__main__"):
+
+    if len(sys.argv) > 1:
+        with open(sys.argv[1]) as database_import:
+            inserted_count = insert_requests(json.load(database_import))
+            log.debug("Inserted {} requests to queue".format(inserted_count))
+
     app.run(host=config.webserver_host, port=config.webserver_port, debug=config.webserver_debug)
